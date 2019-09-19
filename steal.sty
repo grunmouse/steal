@@ -1,0 +1,67 @@
+\ProvidesPackage{import}[2017/07/27 \space  v 0.1]
+%\ProcessOptions
+
+\newcounter{steal}
+\setcounter{steal}{0}
+\def\stealstack{./}
+\def\stealstacka{}
+\def\stealstackb{}
+\def\stealstackc{}
+\def\stealstackd{}
+\def\stealstacke{}
+\def\stealstackf{}
+\def\stealstackg{}
+\def\stealstackh{}
+\def\stealstacki{}
+\def\stealstackj{}
+\def\stealstackk{}
+\def\stealstackl{}
+\def\stealstackm{}
+\def\stealstackn{}
+\def\stealstacko{}
+\def\stealstackp{}
+\def\stealstackq{}
+\def\stealstackr{}
+\def\stealstacks{}
+\def\stealstackt{}
+\def\stealstacku{}
+\def\stealstackv{}
+\def\stealstackw{}
+\def\stealstackx{}
+\def\stealstacky{}
+\def\stealstackz{}
+
+
+\newcommand{\stealpush}[1]{
+	\addtocounter{steal}{1}
+	\expandafter\def\csname stealstack\alph{steal}\endcsname{#1}
+}
+
+\newcommand{\stealpop}{
+	\expandafter\def\csname stealstack\alph{steal}\endcsname{}
+	\addtocounter{steal}{-1}
+}
+
+\newcommand{\currentpath}{\stealstack\stealstacka\stealstackb\stealstackc\stealstackd\stealstacke\stealstackf\stealstackg\stealstackh\stealstacki\stealstackj\stealstackk\stealstackl\stealstackm\stealstackn\stealstacko\stealstackp\stealstackq\stealstackr\stealstacks\stealstackt\stealstacku\stealstackv\stealstackw\stealstackx\stealstacky\stealstackz}
+
+
+\newcommand{\steal}[2]{
+	\stealpush{#1}
+	\input{\currentpath#2}
+	\stealpop
+}
+
+\newcommand{\stealfolder}[1]{ \steal{#1/}{index} }
+
+\newcommand{\stealfile}[1]{ \steal{./}{#1} }
+
+\newcommand{\stealcurrent}{ \steal{./}{index} }
+
+\newcommand{\steallevel}{0}
+\newcommand{\stealroot}{./}
+
+\newcommand{\setsteallevel}[1]{
+	
+	\renewcommand{\steallevel}{#1}
+	\renewcommand{\stealroot}{\loop{#1}{../}}
+}
