@@ -1,3 +1,13 @@
+% $TEXMFROOT/doc/latex/steal
+% mktexlsr
+% Организует импорт с относительными путями. Поддерживает 25 уровней вложенности
+%\steal{path1}{path2}
+%path1 - новый базовый путь, относительно которого будет работать steal в подключаемом файле, 
+%path1path2 - полный путь к импортируемому файлу (path2 - путь к файлу относительно path1)
+%\stealfolder{path} == \steal{path}{index}
+%\stealfile{path} == \steal{./}{path}
+%\stealcurrent == \steal{./}{index}
+
 \ProvidesPackage{import}[2017/07/27 \space  v 0.1]
 %\ProcessOptions
 
@@ -53,9 +63,9 @@
 
 \newcommand{\stealfolder}[1]{ \steal{#1/}{index} }
 
-\newcommand{\stealfile}[1]{ \steal{./}{#1} }
+\newcommand{\stealfile}[1]{ \input{\currentpath#1} }
 
-\newcommand{\stealcurrent}{ \steal{./}{index} }
+\newcommand{\stealcurrent}{ \input{\currentpath index} }
 
 \newcommand{\steallevel}{0}
 \newcommand{\stealroot}{./}
