@@ -1,0 +1,72 @@
+%
+% Организует импорт с относительными путями. Поддерживает 25 уровней вложенности
+%\steal{path1}{path2}
+%path1 - новый базовый путь, относительно которого будет работать steal в подключаемом файле, 
+%path1path2 - полный путь к импортируемому файлу (path2 - путь к файлу относительно path1)
+%\stealfolder{path} == \steal{path}{index}
+%\stealfile{path} == \steal{./}{path}
+%\stealcurrent == \steal{./}{index}
+%\currentpath - возвращает путь текущего файла относительно корневого
+
+\ProvidesPackage{import}[2023/03/28 \space  v 1.0]
+%\ProcessOptions
+
+\makeatletter
+
+\newcounter{steal@stack}
+\setcounter{steal@stack}{0}
+\def\steal@stack{./}
+\def\steal@stacka{}
+\def\steal@stackb{}
+\def\steal@stackc{}
+\def\steal@stackd{}
+\def\steal@stacke{}
+\def\steal@stackf{}
+\def\steal@stackg{}
+\def\steal@stackh{}
+\def\steal@stacki{}
+\def\steal@stackj{}
+\def\steal@stackk{}
+\def\steal@stackl{}
+\def\steal@stackm{}
+\def\steal@stackn{}
+\def\steal@stacko{}
+\def\steal@stackp{}
+\def\steal@stackq{}
+\def\steal@stackr{}
+\def\steal@stacks{}
+\def\steal@stackt{}
+\def\steal@stacku{}
+\def\steal@stackv{}
+\def\steal@stackw{}
+\def\steal@stackx{}
+\def\steal@stacky{}
+\def\steal@stackz{}
+
+
+\providecommand{\steal@push}[1]{%
+	\addtocounter{steal@stack}{1}%
+	\expandafter\def\csname steal@stack\alph{steal@stack}\endcsname{#1}%
+}
+
+\providecommand{\steal@pop}{%
+	\expandafter\def\csname steal@stack\alph{steal@stack}\endcsname{}%
+	\addtocounter{steal@stack}{-1}%
+}
+
+\providecommand{\currentpath}{\steal@stack\steal@stacka\steal@stackb\steal@stackc\steal@stackd\steal@stacke\steal@stackf\steal@stackg\steal@stackh\steal@stacki\steal@stackj\steal@stackk\steal@stackl\steal@stackm\steal@stackn\steal@stacko\steal@stackp\steal@stackq\steal@stackr\steal@stacks\steal@stackt\steal@stacku\steal@stackv\steal@stackw\steal@stackx\steal@stacky\steal@stackz}
+
+
+\providecommand{\steal}[2]{%
+	\steal@push{#1}%
+	\input{\currentpath#2}%
+	\steal@pop%
+}
+
+\providecommand{\stealfolder}[1]{ \steal{#1/}{index} }
+
+\providecommand{\stealfile}[1]{ \input{\currentpath#1} }
+
+\providecommand{\stealcurrent}{ \input{\currentpath index} }
+
+\makeatother
