@@ -1,0 +1,18 @@
+% ls-R -- filename database for kpathsea; do not change this line.
+./:
+.:
+install.sh
+ls-R
+steal.tar.gz
+tex
+
+
+./tex:
+latex
+
+./tex/latex:
+steal
+
+./tex/latex/steal:
+steal.sty
+stealgraphics.sty
